@@ -13,6 +13,7 @@ public class LinkedListNorm
     NodeVertex tail;
     NodeVertex tempHead;
     
+    
     /*
      * add node at end of list
      */
@@ -31,6 +32,7 @@ public class LinkedListNorm
         tail.next = newNode;
         newNode.prev = tail;
         tail = newNode;
+        
     } 
     
     /*
@@ -50,14 +52,19 @@ public class LinkedListNorm
      */
     
     public void remove()
-    {
-        NodeVertex temp = null;
-        
+    {      
         if(!isEmpty())
-        {
-            tail.prev = temp;
-            tail = temp;
-            tail.next = null;                  
+        {  
+            if(head == tail)
+            {
+                head = null;
+                tail = null;
+            }
+            else
+            {
+                tail = tail.prev;
+                tail.next = null;
+            }       
         }
     }
     
@@ -81,7 +88,7 @@ public class LinkedListNorm
     /*
      * finds corresponding data
      */
-    public NodeVertex search(NodeVertex head, int x) 
+    public NodeVertex search(int x) 
     { 
         NodeVertex current = head;    //Initialize current 
         while (current != null) 
@@ -90,7 +97,7 @@ public class LinkedListNorm
                 return current;    //data found 
             current = current.next; 
         } 
-        return current;    //data not found 
+        return null;    //data not found 
     } 
     
     /*
@@ -123,6 +130,22 @@ public class LinkedListNorm
         
         return result;
     }
+    
+    /*
+     * 
+     */
+    public int Size()
+    {
+        int count =0;
+        NodeVertex current = head;
+        while(current != null)
+        {
+            current = current.next;
+            count +=1;
+        }
+        return count;
+    }
+    
     
 
     

@@ -50,13 +50,14 @@ public class Graph
         //base case, check if current node is same as start point & if current path built is not empty
         if(currentNode == currentPaths.head && !currentPaths.isEmpty()) 
         {
+            
+            
             currentPaths.append(currentNode);
             
             //store currentPaths into string Paths
             paths[pointer++] = currentPaths.printPaths();
             currentPaths.remove();
-            return;
-            
+            return;           
             
         }
         
@@ -68,26 +69,26 @@ public class Graph
         
         LinkedListNorm possiblePaths = new LinkedListNorm();
         
-        for(int i=0; i<size; i++)
+        
+        for(int i=0; i<currentNode.neighbors.Size(); i++)
         {
             if (checkPath(currentPaths, i))
             {//true -> found in list
                 if(currentPaths.head.data == i)
                 {
-                    possiblePaths.append(VertexList.search(VertexList.head, i));
+                    possiblePaths.append(currentNode.neighbors.search(i));
                     path = true;
                 }
                 
             }
             else
             {//false
-                possiblePaths.append(VertexList.search(VertexList.head, i));
+                possiblePaths.append(currentNode.neighbors.search(i));
                 path = true;
             }
-        }
-        
             
             
+        }                     
         
         
         //base case, check if path is not available
@@ -99,19 +100,13 @@ public class Graph
             currentPaths.remove();
             return;
         }
-        
-        
+                
         //recursion
-        while(!possiblePaths.isEmpty())
+        for(int i = 0; i<possiblePaths.Size(); i++)
         {
-            traverseGraph(possiblePaths.tail.prev, paths, currentPaths);
+            traverseGraph(possiblePaths.search(i), paths, currentPaths);
         }
-        currentPaths.remove();
-        
-        
-        
-        
-        
+        currentPaths.remove();  
     }   
     
     
@@ -123,9 +118,9 @@ public class Graph
         String[] finalPaths = new String[50];
         
         //start with head of list of vertex list
-        for(int i=0; i<size; i++)
+        for(int i=0; i<VertexList.Size(); i++)
         {
-            traverseGraph(VertexList.search(VertexList.head, i), finalPaths, currentPath);
+            traverseGraph(VertexList.search(i), finalPaths, currentPath);
         }
         //traverseGraph(VertexList.head, finalPaths, currentPath);
         
@@ -181,13 +176,8 @@ public class Graph
         if(!currentPath.isEmpty())
         {
             //searches entire current path linked list
-            for(int i=0; i<size; i++)
-            {
-                if(currentPath.next().data == nodeData)
-                {
-                    return true;
-                }
-            }
+            return (currentPath.search(nodeData)!= null);
+            
         }
         return false;
     }
