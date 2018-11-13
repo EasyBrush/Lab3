@@ -7,8 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Runner
-{
-    
+{    
     public static void main(String[] args)
     {       
         //String filePath = args[0];
@@ -64,13 +63,14 @@ public class Runner
                     VertexCount += 1;                   
                 }
                 
-                Graph graph = new Graph();
+                Graph graph = new Graph(size, outFile);
                 for(int i=0; i<size; i++)
                 {
                     graph.append(vertexList[i]);
                 }
                 
                 System.out.println(graph.toString());
+                graph.findPath();
      
                 
                 line = inFile.readLine();      

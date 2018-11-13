@@ -11,6 +11,7 @@ public class LinkedListNorm
      */
     NodeVertex head;
     NodeVertex tail;
+    NodeVertex tempHead;
     
     /*
      * add node at end of list
@@ -33,6 +34,66 @@ public class LinkedListNorm
     } 
     
     /*
+     * checks if empty
+     */
+    public boolean isEmpty()
+    {
+        if(head ==null)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    /*
+     * removes last item
+     */
+    
+    public void remove()
+    {
+        NodeVertex temp = null;
+        
+        if(!isEmpty())
+        {
+            tail.prev = temp;
+            tail = temp;
+            tail.next = null;                  
+        }
+    }
+    
+    public NodeVertex next()
+    {
+        if(!isEmpty())
+        {
+            if(tempHead == null)
+            {
+                tempHead = head.next;
+            }
+            else
+            {
+                tempHead = tempHead.next;
+            }
+        }
+        
+        return tempHead;
+    }
+    
+    /*
+     * finds corresponding data
+     */
+    public NodeVertex search(NodeVertex head, int x) 
+    { 
+        NodeVertex current = head;    //Initialize current 
+        while (current != null) 
+        { 
+            if (current.data == x) 
+                return current;    //data found 
+            current = current.next; 
+        } 
+        return current;    //data not found 
+    } 
+    
+    /*
      * (non-Javadoc)
      * toString
      * 
@@ -48,6 +109,19 @@ public class LinkedListNorm
         }
         
         return str;
+    }
+    
+    public String printPaths()
+    {
+        String result = "";
+        NodeVertex current = head;
+        while(current.next !=null)
+        {
+            current = current.next;
+            result += current.data;
+        }
+        
+        return result;
     }
     
 
