@@ -96,18 +96,12 @@ public class Runner
                 {
                     for(int l=0; l<vertexList.search(p).neighbors.Size(); l++)//neighbors
                     {
-                        vertexList.search(p).neighbors.get(l).neighbors = vertexList.search(l).neighbors;
-                    }
-                    
+                        NodeVertex temp = vertexList.search(p).neighbors.get(l); 
+                        temp.neighbors = vertexList.search(temp.getData()).neighbors;
+                    }                 
                 }
-
                 
                 Graph graph = new Graph(size, outFile, vertexList);
-                /*for(int i=0; i<size; i++)
-                {
-                    graph.append(vertexList[i]);
-                }*/
-                
                 
                 System.out.println(graph.toString());
                 graph.findPath();

@@ -59,12 +59,13 @@ public class Graph
     public void traverseGraph(NodeVertex currentNode, String[] paths, LinkedListNorm currentPaths)
     {               
         //base case, check if current node is same as start point & if current path built is not empty
-        if(currentNode == currentPaths.head && !currentPaths.isEmpty()) 
+        if(!currentPaths.isEmpty() && currentNode.getData() == currentPaths.head.getData()) 
         {   
             currentPaths.append(currentNode);
             
             //store currentPaths into string Paths
-            paths[pointer++] = currentPaths.printPaths();
+            paths[pointer++] = currentPaths.toString();
+            System.out.println(currentPaths);
             currentPaths.remove();
             return;           
             
@@ -80,9 +81,9 @@ public class Graph
               
         for(int i=0; i<currentNode.neighbors.Size(); i++)
         {
-            if (checkPath(currentPaths, i))
+            if (checkPath(currentPaths, currentNode.neighbors.get(i).getData()))
             {//true -> found in list
-                if(currentPaths.head.data == i)
+                if(currentPaths.head.data == currentNode.neighbors.get(i).getData())
                 {
                     possiblePaths.append(currentNode.neighbors.get(i));
                     path = true;
@@ -99,8 +100,8 @@ public class Graph
         if(path == false)
         {
             //add currentPath to pathList
-            paths[pointer++] = currentPaths.printPaths();
-            
+            paths[pointer++] = currentPaths.toString();
+            System.out.println(currentPaths);
             currentPaths.remove();
             return;
         }
@@ -169,7 +170,7 @@ public class Graph
         if(!currentPath.isEmpty())
         {
             //searches entire current path linked list
-            return (currentPath.get(nodeData)!= null);
+            return (currentPath.search(nodeData)!= null);
             
         }
         return false;

@@ -96,8 +96,8 @@ public class LinkedListNorm
         NodeVertex temp = head;
         String str = "";
         while(temp != null)
-        {
-            str += temp.toString() + ", ";
+        {           
+            str += temp.toString();
             temp = temp.next;
         }
         
