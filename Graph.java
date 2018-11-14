@@ -9,10 +9,9 @@ import java.io.IOException;
 public class Graph
 {
     LinkedListNorm VertexList;
-    LinkedListNorm VertexList2;
+    //LinkedListNorm VertexList2;
     LinkedListNorm currentPath;
     int size;
-    private int currentPathPtr;
     private int pointer;
     NodeVertex tempNode;
     private BufferedWriter outFile;
@@ -27,15 +26,13 @@ public class Graph
      */
     public Graph(int size, BufferedWriter outFile, LinkedListNorm vertexList)
     {   //initialized      
-        this.VertexList = vertexList;
-        LinkedListNorm VertexList2 = new LinkedListNorm();
-        
+        this.VertexList = vertexList;      
         
         currentPath = new LinkedListNorm();
         this.size = size;
         
         tempNode = null;
-        currentPathPtr = 0;
+        
         pointer = 0;
         /*for(int i=0; i<size+1; i++)
         {
@@ -80,29 +77,24 @@ public class Graph
         currentPaths.append(currentNode);
         
         LinkedListNorm possiblePaths = new LinkedListNorm();
-        
-        
+              
         for(int i=0; i<currentNode.neighbors.Size(); i++)
         {
             if (checkPath(currentPaths, i))
             {//true -> found in list
                 if(currentPaths.head.data == i)
                 {
-                    possiblePaths.append(currentNode.neighbors.search(i));
+                    possiblePaths.append(currentNode.neighbors.get(i));
                     path = true;
                 }
-                
             }
             else
             {//false
-                possiblePaths.append(currentNode.neighbors.search(i));
+                possiblePaths.append(currentNode.neighbors.get(i));
                 path = true;
-            }
-            
-            
+            }  
         }                     
-        
-        
+               
         //base case, check if path is not available
         if(path == false)
         {
@@ -116,7 +108,7 @@ public class Graph
         //recursion
         for(int i = 0; i<possiblePaths.Size(); i++)
         {
-            traverseGraph(possiblePaths.search(i), paths, currentPaths);
+            traverseGraph(possiblePaths.get(i), paths, currentPaths);
         }
         currentPaths.remove();  
     }   
@@ -177,7 +169,7 @@ public class Graph
         if(!currentPath.isEmpty())
         {
             //searches entire current path linked list
-            return (currentPath.search(nodeData)!= null);
+            return (currentPath.get(nodeData)!= null);
             
         }
         return false;

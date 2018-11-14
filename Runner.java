@@ -70,7 +70,11 @@ public class Runner
                         if (neighbor[i].equals("1"))
                         //if (neighbor[i] == "1")
                         {
-                            neighbors.append(vertexList.search(i));                            
+                            //create new node to "reset" pointers 
+                            NodeVertex vertex = vertexList.search(i);
+                            NodeVertex temp = new NodeVertex(vertex.data);
+                            temp.neighbors = vertex.neighbors;
+                            neighbors.append(temp);
                         }       
                         
                         else if (!neighbor[i].equals("1") && !neighbor[i].equals("0") && neighbor.length != size)
@@ -87,6 +91,14 @@ public class Runner
                     
                     //vertexList[VertexCount].setNeighbors(neighbors);                    
                     VertexCount += 1;                   
+                }
+                for(int p=0; p<size; p++)//vertex list
+                {
+                    for(int l=0; l<vertexList.search(p).neighbors.Size(); l++)//neighbors
+                    {
+                        vertexList.search(p).neighbors.get(l).neighbors = vertexList.search(l).neighbors;
+                    }
+                    
                 }
 
                 

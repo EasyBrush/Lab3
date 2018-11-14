@@ -17,31 +17,24 @@ public class LinkedListNorm
      * @param newNode
      */
     public void append(NodeVertex newNode)
-    {    
-
+    {   
+        NodeVertex temp = new NodeVertex(newNode.data);
+        temp.neighbors = newNode.neighbors;
         
         if(head==null)
         {
-            newNode.prev = null;
-            head = newNode;
-            tail = newNode;
-            
+            //newNode.prev = null;
+            head = temp;
+            tail = temp;           
             return;
         }
         else
         {
-            tail.next = newNode;
-            newNode.prev = tail;
+            tail.next = temp;
+            temp.prev = tail;
             //newNode.next = null;
-            tail = newNode;
-            
+            tail = temp; 
         }
-        
-        /*tail.next = newNode;
-        newNode.prev = tail;
-        newNode.next = null;
-        tail = newNode;*/
-        
     } 
     
     /**
@@ -85,7 +78,7 @@ public class LinkedListNorm
     { 
         NodeVertex current = head;    //Initialize current 
         while (current != null) 
-        { 
+        {
             if (current.data == x) 
                 return current;    //data found 
             current = current.next; 
@@ -142,6 +135,19 @@ public class LinkedListNorm
         return count;
     }
     
+    /**
+     * returns node at index i
+     * @param index i
+     */
+    public NodeVertex get(int i)
+    {
+        NodeVertex current = head;
+        for(int j =0; j<i ; j++)
+        {
+            current = current.next;
+        }
+        return current;
+    }
     
 
     
