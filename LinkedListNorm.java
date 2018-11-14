@@ -1,41 +1,50 @@
 package ds_lab;
-/*
- * normal linked list used to hold pointers to neighbor vertex
+/**
+ * Doubly linked list with head and tail pointer
+ * @author Bryan Cheung
  */
 
 public class LinkedListNorm
 {
-    /*
-     * Need to add to list, no need to delete
-     * Make this doubly linked list
-     */
+
     NodeVertex head;
     NodeVertex tail;
-    NodeVertex tempHead;
+    //NodeVertex tempHead;
     
     
-    /*
+    /**
      * add node at end of list
+     * @param newNode
      */
     public void append(NodeVertex newNode)
     {    
-        //NodeVertex newNode = new NodeVertex(newData);
+
         
         if(head==null)
         {
             newNode.prev = null;
             head = newNode;
             tail = newNode;
+            
             return;
         }
+        else
+        {
+            tail.next = newNode;
+            newNode.prev = tail;
+            //newNode.next = null;
+            tail = newNode;
+            
+        }
         
-        tail.next = newNode;
+        /*tail.next = newNode;
         newNode.prev = tail;
-        tail = newNode;
+        newNode.next = null;
+        tail = newNode;*/
         
     } 
     
-    /*
+    /**
      * checks if empty
      */
     public boolean isEmpty()
@@ -47,7 +56,7 @@ public class LinkedListNorm
         return false;
     }
     
-    /*
+    /**
      * removes last item
      */
     
@@ -68,25 +77,9 @@ public class LinkedListNorm
         }
     }
     
-    public NodeVertex next()
-    {
-        if(!isEmpty())
-        {
-            if(tempHead == null)
-            {
-                tempHead = head.next;
-            }
-            else
-            {
-                tempHead = tempHead.next;
-            }
-        }
-        
-        return tempHead;
-    }
-    
-    /*
-     * finds corresponding data
+    /**
+     * finds and returns node corresponding to data
+     * @param id value
      */
     public NodeVertex search(int x) 
     { 
@@ -100,7 +93,7 @@ public class LinkedListNorm
         return null;    //data not found 
     } 
     
-    /*
+    /**
      * (non-Javadoc)
      * toString
      * 
@@ -117,7 +110,10 @@ public class LinkedListNorm
         
         return str;
     }
-    
+    /**
+     * returns string buffer
+     * @return
+     */
     public String printPaths()
     {
         String result = "";
@@ -131,8 +127,8 @@ public class LinkedListNorm
         return result;
     }
     
-    /*
-     * 
+    /**
+     * returns size of linked list
      */
     public int Size()
     {

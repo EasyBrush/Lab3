@@ -1,11 +1,15 @@
 package ds_lab;
-
+/**
+ * This class is responsible for graph traversal and path finding
+ * @author Bryan Cheung
+ */
 import java.io.BufferedWriter;
 import java.io.IOException;
 
 public class Graph
 {
     LinkedListNorm VertexList;
+    LinkedListNorm VertexList2;
     LinkedListNorm currentPath;
     int size;
     private int currentPathPtr;
@@ -14,10 +18,19 @@ public class Graph
     private BufferedWriter outFile;
 
     
-    
-    public Graph(int size, BufferedWriter outFile)
+    /**
+     * constructor
+     * 
+     * @param size
+     * @param outFile
+     * @param vertexList
+     */
+    public Graph(int size, BufferedWriter outFile, LinkedListNorm vertexList)
     {   //initialized      
-        VertexList = new LinkedListNorm();
+        this.VertexList = vertexList;
+        LinkedListNorm VertexList2 = new LinkedListNorm();
+        
+        
         currentPath = new LinkedListNorm();
         this.size = size;
         
@@ -32,8 +45,9 @@ public class Graph
         this.outFile = outFile;
     }    
     
-    /*
+    /**
      * append new vertex to list
+     * @param node
      */
     public void append(NodeVertex node)
     {
@@ -41,17 +55,15 @@ public class Graph
         
     }
     
-    /*
-     * 
+    /**
+     * Traverses graph using depth first search
+     * @param currentNode, paths[], currenPaths
      */
-    //don't think I need current path
     public void traverseGraph(NodeVertex currentNode, String[] paths, LinkedListNorm currentPaths)
     {               
         //base case, check if current node is same as start point & if current path built is not empty
         if(currentNode == currentPaths.head && !currentPaths.isEmpty()) 
-        {
-            
-            
+        {   
             currentPaths.append(currentNode);
             
             //store currentPaths into string Paths
@@ -110,8 +122,8 @@ public class Graph
     }   
     
     
-    /*
-     * going to store final paths into an array and write entire array to outFile??
+    /**
+     * initiates recursion and writes final paths to outfile
      */
     public void findPath()
     {
@@ -122,16 +134,11 @@ public class Graph
         {
             traverseGraph(VertexList.search(i), finalPaths, currentPath);
         }
-        //traverseGraph(VertexList.head, finalPaths, currentPath);
-        
+          
         //write out currentPaths using printPath method
         try
         {
-            outFile.write(Integer.toString(size));
-            outFile.newLine();
-            
-            //print matrix in outFile
-            
+                       
             String buffer = "Paths: ";
             
             for(int j=0; j<pointer; j++)
@@ -150,26 +157,20 @@ public class Graph
         }
         
     }      
-    
-    /*
-     *  
+    /**
+     * toString 
+     * returns string representation of VertexList
      */
-    public void printPath(LinkedListNorm currentPath)
-    {
-        
-
-        
-        
-       
-    }
-    
     public String toString()
     {
         return VertexList.toString();
     }
     
-    /*
+    /**
+     * Checks if path already contains the nodeDate
      * true if node is already in path, false if not found
+     * 
+     * @param currentPath, nodeData
      */
     public boolean checkPath(LinkedListNorm currentPath, int nodeData)
     {
